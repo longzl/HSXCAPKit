@@ -94,7 +94,7 @@
 - (void)closeDragDown{
     __weak typeof(self) weakSelf = self;
     [OSUtils runBlockOnMain:^{
-        [weakSelf.refreshScrollView egoRefreshScrollViewDataSourceDidFinishedLoading: (UIScrollView *) weakSelf];
+        [weakSelf.refreshScrollView egoRefreshScrollViewDataSourceDidFinishedLoading: (UIScrollView *) [weakSelf innerView]];
     }];
 }
 
@@ -349,7 +349,11 @@
 }
 
 - (PackedArray *) getContentOffset{
-    CGPoint contentOffset = ((UIScrollView *)[self innerView]).contentOffset;
+    __block CGPoint contentOffset;
+    [OSUtils runSyncBlockOnMain:^{
+        contentOffset = ((UIScrollView *)[self innerView]).contentOffset;
+    }];
+
     return [[PackedArray alloc] initWithArray: @[
             [NSNumber numberWithFloat: [[self.pageSandbox getAppSandbox].scale getRefLength:contentOffset.x]],
             [NSNumber numberWithFloat: [[self.pageSandbox getAppSandbox].scale getRefLength:contentOffset.y]]

@@ -10,7 +10,6 @@
 @property (nonatomic, weak) GlobalSandbox *globalSandbox;
 
 - (BOOL) _COROUTINE_installFile: (NSString *) filePath : (NSString *) appId;
-- (BOOL) _COROUTINE_installURL: (NSString *) urlString : (NSString *) appId;
 
 - (void) scan;
 - (BOOL) remove: (NSString *) appId;

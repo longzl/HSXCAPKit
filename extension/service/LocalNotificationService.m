@@ -11,7 +11,9 @@
 }
 
 - (void) clear {
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [OSUtils runBlockOnMain:^{
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    }];
 }
 
 - (BOOL) add: (NSDictionary *) dic{
@@ -19,25 +21,28 @@
         return NO;
     }
     
-    UILocalNotification *n = [[UILocalNotification alloc] init];
-    if ([[dic valueForKey: @"sound"] isKindOfClass: [NSString class]]) {
-        n.soundName = [dic valueForKey: @"sound"];
-    }
-    if ([[dic valueForKey: @"title"] isKindOfClass: [NSString class]]) {
-        n.alertBody = [dic valueForKey: @"title"];
-    }
-    if ([[dic valueForKey: @"action"] isKindOfClass: [NSString class]]) {
-        n.alertAction = [dic valueForKey: @"action"];
-    }
-    if ([[dic valueForKey: @"body"] isKindOfClass: [NSDictionary class]]) {
-        n.userInfo = [dic valueForKey: @"body"];
-    }
-    if ([[dic valueForKey: @"datetime"] isKindOfClass: [NSNumber class]]) {
-        n.fireDate = [NSDate dateWithTimeIntervalSince1970: [[dic valueForKey: @"datetime"] doubleValue]];
-    }
+    [OSUtils runBlockOnMain:^{
+        UILocalNotification *n = [[UILocalNotification alloc] init];
+        if ([[dic valueForKey: @"sound"] isKindOfClass: [NSString class]]) {
+            n.soundName = [dic valueForKey: @"sound"];
+        }
+        if ([[dic valueForKey: @"title"] isKindOfClass: [NSString class]]) {
+            n.alertBody = [dic valueForKey: @"title"];
+        }
+        if ([[dic valueForKey: @"action"] isKindOfClass: [NSString class]]) {
+            n.alertAction = [dic valueForKey: @"action"];
+        }
+        if ([[dic valueForKey: @"body"] isKindOfClass: [NSDictionary class]]) {
+            n.userInfo = [dic valueForKey: @"body"];
+        }
+        if ([[dic valueForKey: @"datetime"] isKindOfClass: [NSNumber class]]) {
+            n.fireDate = [NSDate dateWithTimeIntervalSince1970: [[dic valueForKey: @"datetime"] doubleValue]];
+        }
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification: n];
+    }];
     
-    [[UIApplication sharedApplication] scheduleLocalNotification: n];
-    return YES;
+   return YES;
 }
 
 -(LuaTable *)toLuaTable{

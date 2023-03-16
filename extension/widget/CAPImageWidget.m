@@ -129,12 +129,16 @@
 }
 
 - (void) applySrc{
+    __weak typeof(self) weakSelf = self;
+    if (self.dataTask) {
+        [self.dataTask cancel];
+        self.dataTask = nil;
+    }
+    
     if ([self.model.src isKindOfClass: [UIImage class]]) {
         [self reloadImage: self.model.src];
     } else if ([self.model.src isKindOfClass: [CAPLuaImage class]]) {
         CAPLuaImage *luaImage = (CAPLuaImage *) self.model.src;
-
-        __weak id weakSelf = self;
         [luaImage getImage:^(UIImage *img) {
             [weakSelf reloadImage: img];
         }];
@@ -148,7 +152,6 @@
                 [self processImageData:[imageURL path]];
             }else if([imageURL isKindOfClass: [NSURL class]]){
                 NSLog(@"%@", imageURL);
-                __weak CAPImageWidget *weakSelf = self;
                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: imageURL
                                                                        cachePolicy: NSURLRequestUseProtocolCachePolicy
                                                                    timeoutInterval: 60];
@@ -182,9 +185,6 @@
                     }
                 }
 
-                if (self.dataTask) {
-                    [self.dataTask cancel];
-                }
                 self.dataTask =
                 [[NSURLSession sharedSession]
                  dataTaskWithRequest: request
@@ -205,6 +205,10 @@
                  }];
 
                 [self.dataTask resume];
+            } else {
+                [OSUtils runBlockOnMain:^{
+                    [weakSelf processImageData: nil];
+                }];
             }
         }
     }
@@ -219,7 +223,7 @@
         needRefreshSrc = YES;
     });
 
-    if (imageView.image && [imageView.image isKindOfClass: NSClassFromString(@"_UIAnimatedImage")]) {
+    if (imageView.image && [imageView.image isKindOfClass: [YLGIFImage class]]) {
         UIImage *image = imageView.image;
         imageView.image = nil;
         imageView.image = image;
