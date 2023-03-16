@@ -1,0 +1,3 @@
+@interface UnicastEvent : BaseEvent
+
+@end
