@@ -42,13 +42,18 @@ Pod::Spec.new do |s|
   s.dependency 'YLGIFImage', '~> 0.11'
   s.dependency 'Bugly', '~> 2.4.8'
   s.dependency 'RSSwizzle', '~> 0.1.0'
+  # s.dependency 'luafan', '~> 0.7.1'
+
 
   s.dependency 'CAPKit-iOS-WebP', '~> 0.4'
   s.dependency 'CAPKit-lua53', '~> 0.1.0'
-  s.dependency 'CAPKit-3rdparty-libs', '~> 0.1.0'
-  s.dependency 'CAPKit-sqlcipher', '~> 0.1.0'
-  s.dependency 'CAPKit-OpenCV24x', '~> 2.4.10'
   s.dependency 'CAPKit-Box2D', '~> 0.1.0'
-
-  s.dependency 'luafan', '~> 0.7.1'
+  # s.dependency 'CAPKit-3rdparty-libs', '~> 0.1.0'
+  # s.dependency 'CAPKit-sqlcipher', '~> 0.1.0'
+  # s.dependency 'CAPKit-OpenCV24x', '~> 2.4.10'
+  s.dependency 'HSXluafan', '~> 0.7.2'
+  s.dependency 'HSXCAPKit-3rdparty-libs', '~> 0.1.0'
+  s.dependency 'HSXCAPKit-sqlcipher', '~> 0.1.0'
+  s.dependency 'HSXCAPKit-OpenCV24x', '~> 2.4.10'
+  
 end

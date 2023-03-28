@@ -27,7 +27,7 @@ FOUNDATION_EXPORT const unsigned char CAPKitVersionString[];
 #import <lua53/lauxlib.h>
 
 #import <CAPKit/caplua.h>
-#import <luafan/bytearray.h>
+#import <HSXluafan/bytearray.h>
 
 #import <CAPKit/LuaRef.h>
 #import <CAPKit/LuaFunction.h>
