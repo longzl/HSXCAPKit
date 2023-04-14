@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.weak_framework = 'WebKit'
   s.libraries = 'resolv'
 
-  s.default_subspec = 'Release'
+  s.default_subspec = 'Debug'
 
   # s.subspec 'Release' do |ss|
   #   ss.source_files = 'extension/**/*.*'
