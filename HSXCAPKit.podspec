@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Debug' do |ss|
-    ss.source_files = 'extension/**/*.*'   #,'Headers/*.*'
+    ss.source_files = 'extension/**/*.*'
     ss.resource = 'Debug/builtin'
     ss.ios.vendored_frameworks = 'Debug/CAPKit.framework'
   end
@@ -55,6 +55,6 @@ Pod::Spec.new do |s|
   s.dependency 'HSXCAPKit-3rdparty-libs', '~> 0.1.0'
   s.dependency 'HSXCAPKit-sqlcipher', '~> 0.1.0'
   s.dependency 'HSXCAPKit-OpenCV24x', '~> 2.4.10'
-  s.dependency 'HSXCAPKit-lua53', '~> 0.1.0'
+  # s.dependency 'HSXCAPKit-lua53', '~> 0.1.0'
   
 end
