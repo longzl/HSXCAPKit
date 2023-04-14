@@ -6,7 +6,8 @@
 //
 //
 
-#import "LuaLocation.h"
+// #import "LuaLocation.h"
+#import <CAPKit/LuaLocation.h>
 
 @implementation LuaLocation
 

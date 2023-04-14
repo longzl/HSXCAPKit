@@ -6,7 +6,8 @@
 //
 //
 
-#import "LuaHeading.h"
+// #import "LuaHeading.h"
+#import <CAPKit/LuaHeading.h>
 
 @implementation LuaHeading
 

@@ -1,4 +1,5 @@
-#import "LuaABRecord.h"
+// #import "LuaABRecord.h"
+#import <CAPKit/LuaABRecord.h>
 
 @implementation LuaABRecord
 

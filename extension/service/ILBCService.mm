@@ -1,4 +1,5 @@
-#import "ILBCService.h"
+// #import "ILBCService.h"
+#import <CAPKit/ILBCService.h>
 
 extern OSStatus DoConvertFile(CFURLRef sourceURL, CFURLRef destinationURL, OSType outputFormat, Float64 outputSampleRate);
 

@@ -22,9 +22,12 @@
 // THE SOFTWARE.
 //
 #import <CAPKit/CAPKit.h>
-#import "BMXSwipableCell.h"
-#import "BMXSwipableCellGestureDelegate.h"
-#import "SwipableScrollview.h"
+// #import "BMXSwipableCell.h"
+// #import "BMXSwipableCellGestureDelegate.h"
+// #import "SwipableScrollview.h"
+#import <CAPKit/BMXSwipableCell.h>
+#import <CAPKit/BMXSwipableCellGestureDelegate.h>
+#import <CAPKit/SwipableScrollview.h>
 
 #define BMX_SWIPABLE_CELL_LOG_ENABLED
 #undef BMX_SWIPABLE_CELL_LOG_ENABLED

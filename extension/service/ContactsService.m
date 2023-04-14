@@ -1,5 +1,7 @@
-#import "ContactsService.h"
-#import "LuaABRecord.h"
+// #import "ContactsService.h"
+// #import "LuaABRecord.h"
+#import <CAPKit/ContactsService.h>
+#import <CAPKit/LuaABRecord.h>
 
 @interface ContactsService ()
 

@@ -1,5 +1,6 @@
-#import "PhotoService.h"
+// #import "PhotoService.h"
 #import <Photos/Photos.h>
+#import <CAPKit/PhotoService.h>
 
 @implementation PhotoService
 

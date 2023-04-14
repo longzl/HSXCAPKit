@@ -23,7 +23,8 @@
 //
 
 
-#import "BMXSwipableCellGestureDelegate.h"
+// #import "BMXSwipableCellGestureDelegate.h"
+#import <CAPKit/BMXSwipableCellGestureDelegate.h>
 
 @implementation BMXSwipableCellGestureDelegate {
     UITableViewCell __weak *_cell;

@@ -1,7 +1,7 @@
 // #import "ZBarService.h"
-// #import "ZBarSDK.h"
+#import "ZBarSDK.h"
 #import <CAPKit/ZBarService.h>
-#import <CAPKit/ZBarSDK.h>
+// #import <CAPKit/ZBarSDK.h>
 #import <CAPKit/CAPKit.h>
 #import <CAPKit/UIApplication+UIApplication_AppDimensions.h>
 

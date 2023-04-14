@@ -6,9 +6,12 @@
 //
 //
 
-#import "LocationService.h"
-#import "LuaLocation.h"
-#import "LuaHeading.h"
+// #import "LocationService.h"
+// #import "LuaLocation.h"
+// #import "LuaHeading.h"
+#import <CAPKit/LocationService.h>
+#import <CAPKit/LuaLocation.h>
+#import <CAPKit/LuaHeading.h>
 
 @implementation LocationService
 

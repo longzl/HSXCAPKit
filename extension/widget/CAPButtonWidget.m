@@ -6,9 +6,11 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPButtonWidget.h"
-#import "CAPButtonM.h"
+// #import "CAPButtonWidget.h"
+// #import "CAPButtonM.h"
 #import "CJSONSerializer.h"
+#import <CAPKit/CAPButtonWidget.h>
+#import <CAPKit/CAPButtonM.h>
 
 @implementation CAPButtonWidget
 
