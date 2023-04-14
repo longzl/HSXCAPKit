@@ -6,9 +6,13 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ListWidgetCell.h"
-#import "CAPListWidget.h"
-#import "CAPListM.h"
+// #import "ListWidgetCell.h"
+// #import "CAPListWidget.h"
+// #import "CAPListM.h"
+
+#import <CAPKit/ListWidgetCell.h>
+#import <CAPKit/CAPListWidget.h>
+#import <CAPKit/CAPListM.h>
 
 @implementation ListWidgetCell
 

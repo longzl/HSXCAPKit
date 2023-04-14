@@ -22,8 +22,10 @@
 // THE SOFTWARE.
 //
 
-#import "UITableViewController+BMXSwipableCellSupport.h"
-#import "BMXSwipableCell.h"
+// #import "UITableViewController+BMXSwipableCellSupport.h"
+// #import "BMXSwipableCell.h"
+#import <CAPKit/UITableViewController+BMXSwipableCellSupport.h>
+#import <CAPKit/BMXSwipableCell.h>
 
 @implementation UITableViewController (BMXSwipableCellSupport)
 

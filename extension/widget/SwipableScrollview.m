@@ -1,4 +1,5 @@
-#import "SwipableScrollview.h"
+// #import "SwipableScrollview.h"
+#import <CAPKit/SwipableScrollview.h>
 
 @implementation SwipableScrollview
 

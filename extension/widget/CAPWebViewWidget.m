@@ -6,13 +6,16 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPWebViewWidget.h"
-#import "CAPWebViewM.h"
+// #import "CAPWebViewWidget.h"
+// #import "CAPWebViewM.h"
 #import "CJSONDeserializer.h"
 #import "CJSONSerializer.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <QuartzCore/QuartzCore.h>
+#import <CAPKit/CAPWebViewWidget.h>
+#import <CAPKit/CAPWebViewM.h>
+
 
 @implementation CAPWebViewWidget
 

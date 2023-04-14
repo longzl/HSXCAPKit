@@ -6,7 +6,8 @@
 //
 //
 
-#import "EOSScrollView.h"
+// #import "EOSScrollView.h"
+#import <CAPKit/EOSScrollView.h>
 
 @implementation EOSScrollView
 
