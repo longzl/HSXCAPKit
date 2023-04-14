@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "CAPKit"
+  s.name         = "HSXCAPKit"
   s.version      = "0.3.7"
   s.summary      = "CAPKit Framework."
   s.description  = <<-DESC
