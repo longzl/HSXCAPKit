@@ -20,8 +20,6 @@
 
 - (NSString *) tostring;
 
-- (NSArray *) tolua DEPRECATED_ATTRIBUTE;
-
 - (NSArray *) totable;
 
 @end

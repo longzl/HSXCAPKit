@@ -3,13 +3,13 @@
 @class GlobalSandbox;
 
 @interface CAPRenderView : UIView {
-    NSMutableArray *stack;
     UIView *contentView;
 }
 
 @property (nonatomic, assign) CGRect rect;
 @property (nonatomic, weak) GlobalSandbox *globalSandbox;
 @property (nonatomic, assign) BOOL insideFrame;
+@property (nonatomic) NSMutableArray *stack;
 
 - (void) reloadSize;
 

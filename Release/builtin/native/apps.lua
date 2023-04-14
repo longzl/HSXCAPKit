@@ -33,11 +33,7 @@ function push(appId, pageId, useCurrentStack, sandbox)
     end
 
     if type(appId) == "table" then
-        if appId.popToAppId then
-            return helper:popAndPushApp(appId)
-        else
-            return helper:pushPage(appId)
-        end
+        return helper:pushPage(appId)
     else
         return helper:pushPage{
             pageId = pageId,

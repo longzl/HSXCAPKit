@@ -1,12 +1,16 @@
-#import "Reachability.h"
+#import <UserNotifications/UserNotifications.h>
 
 @class CAPContainer;
 @class CAPRenderView;
+@class Reachability;
 
 #define CAPDidEnterBackgroundNotification @"CAPDidEnterBackgroundNotification"
 #define CAPWillEnterForegroundNotification @"CAPWillEnterForegroundNotification"
 
-@interface CAPCenter : NSObject {
+typedef void (^exceptionBlock)(NSException *);
+typedef void (^errorBlock)(NSError *);
+
+@interface CAPCenter : NSObject <UNUserNotificationCenterDelegate>{
     NSMutableArray *containers;
     Reachability *reachability;
     Class containerClass;
@@ -26,6 +30,9 @@
 
 @property (nonatomic, strong) NSString *userAgent;
 
+@property (nonatomic, strong) exceptionBlock exceptionHandler;
+@property (nonatomic, strong) errorBlock errorHandler;
+
 
 + (CAPCenter *) shared;
 
@@ -44,7 +51,7 @@
 
 - (void) removeAllContainers;
 
-- (CAPContainer *) lastContainer DEPRECATED_ATTRIBUTE;
+- (CAPContainer *) lastContainer;
 
 - (void) initProxy: (NSURL *) optionalURL;
 
@@ -58,7 +65,6 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification;
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 @end

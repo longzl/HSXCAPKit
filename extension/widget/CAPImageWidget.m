@@ -151,7 +151,7 @@
             if ([imageURL isFileURL]) {
                 [self processImageData:[imageURL path]];
             }else if([imageURL isKindOfClass: [NSURL class]]){
-                NSLog(@"%@", imageURL);
+                DEBUG_EOS_LOG(@"%@", imageURL);
                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: imageURL
                                                                        cachePolicy: NSURLRequestUseProtocolCachePolicy
                                                                    timeoutInterval: 60];
@@ -198,7 +198,7 @@
                      } else {
                          NSDictionary *resp = @{@"responseCode": [NSNumber numberWithLong: ((NSHTTPURLResponse *) response).statusCode]};
                          [OSUtils executeDirect: weakSelf.model.onerror withSandbox: weakSelf.pageSandbox withObject: weakSelf withObject: resp];
-                         NSLog(@"image download failed! - %@ - %@", imageURL, error);
+                         DEBUG_EOS_LOG(@"image download failed! - %@ - %@", imageURL, error);
                      }
 
                      weakSelf.dataTask = nil;

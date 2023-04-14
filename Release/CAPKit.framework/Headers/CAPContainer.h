@@ -10,17 +10,15 @@
 
 @class GlobalSandbox;
 
-@interface CAPContainer : NSObject <GlobalSandboxDelegate> {
-    UIView *busyView;
-    UIView *busyBodyView;
-    UIProgressView *progressView;
-    UIActivityIndicatorView *indicatorView;
-    NSInteger busyCount;
+@interface CAPContainer : NSObject <GlobalSandboxDelegate>
 
-    NSMutableArray *modalStack;
-}
-
-@property (nonatomic, weak, readonly) CAPRenderView *renderView;
+@property (nonatomic, weak) CAPRenderView *renderView;
+@property (nonatomic, strong) UIView *busyView;
+@property (nonatomic, strong) UIView *busyBodyView;
+@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, assign) NSInteger busyCount;
+@property (nonatomic, strong) NSMutableArray *modalStack;
 @property (nonatomic, strong, readonly) GlobalSandbox *globalSandbox;
 @property (nonatomic, strong, readonly) StorageHelper *storageHelper;
 
@@ -45,7 +43,8 @@
 
 -(NSString *)bootAppId;
 
-- (void) startBusy: (NSString *) ycenter withTitle: (NSString *) title;
+- (void) startBusy: (NSString *) ycenter withTitle: (NSString *) title DEPRECATED_ATTRIBUTE;
+- (void) startBusy;
 - (void) stopBusy;
 
 - (void) initBusyView;

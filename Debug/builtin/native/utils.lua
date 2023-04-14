@@ -1,7 +1,7 @@
 module(..., package.seeall)
 
 function versionCompare(version1, version2)
-    return version1 == version2 and 0 or -1
+    return helper:compareVersion_withVersion_(version1, version2)
 end
 
 function tojson(str)

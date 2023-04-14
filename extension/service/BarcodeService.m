@@ -85,29 +85,29 @@
 
 - (void) cancel: (LuaFunction *) oncompleted{
     [OSUtils runBlockOnMain:^{
-        [session stopRunning];
+        [self->session stopRunning];
 
-        [_controller dismissViewControllerAnimated: YES
+        [self->_controller dismissViewControllerAnimated: YES
                                         completion:^{
                                             if ([oncompleted isKindOfClass: [LuaFunction class]]) {
                                                 [oncompleted executeWithoutReturnValue];
                                             }
-                                            _controller = nil;
+            self->_controller = nil;
                                         }];
-        _callback = nil;
+        self->_callback = nil;
     }];
 }
 
 - (void) take {
-    NSLog(@"take not available for barcode service.");
+    DEBUG_EOS_LOG(@"take not available for barcode service.", nil);
 }
 
 - (void) addConfig:(NSString *)value {
-    NSLog(@"addConfig not available for barcode service.");
+    DEBUG_EOS_LOG(@"addConfig not available for barcode service.", nil);
 }
 
 - (void) removeAllConfig{
-    NSLog(@"removeAllConfig not available for barcode service.");
+    DEBUG_EOS_LOG(@"removeAllConfig not available for barcode service.", nil);
 }
 
 -(void)onLoad{
@@ -142,7 +142,7 @@
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType: AVMediaTypeVideo];
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice: device error:nil];
         if (!input) {
-            NSLog(@"Can't find any Video Input Device.");
+            DEBUG_EOS_LOG(@"Can't find any Video Input Device.", nil);
             _callback = nil;
             return;
         }
@@ -152,7 +152,7 @@
         [output setMetadataObjectsDelegate: self queue: dispatch_get_main_queue()];
 
         [session addOutput:output];
-//        NSLog(@"%@", [output availableMetadataObjectTypes]);
+//        DEBUG_EOS_LOG(@"%@", [output availableMetadataObjectTypes]);
         output.metadataObjectTypes=@[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -172,7 +172,7 @@
             }
             else
             {
-                NSLog(@"%@", error);
+                DEBUG_EOS_LOG(@"%@", error);
             }
         });
 
@@ -224,7 +224,7 @@
         [list addObject: self];
 
         for (AVMetadataMachineReadableCodeObject *metadataObject in metadataObjects) {
-            NSLog(@"%@",metadataObject.stringValue);
+            DEBUG_EOS_LOG(@"%@",metadataObject.stringValue);
 
 //            NSString *gbkstr;
 //            if (_gbkEncoding) {

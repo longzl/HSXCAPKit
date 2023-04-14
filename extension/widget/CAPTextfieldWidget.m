@@ -209,29 +209,27 @@
 - (void)textFieldDidChange :(NSNotification *)obj {
     NSString *text = textfieldView.text;
     NSString *lang = [textfieldView.textInputMode primaryLanguage];
-    if ([lang isEqualToString:@"zh-Hans"]) {
+    BOOL processChange = NO;
+    if ([lang hasPrefix:@"zh"]) {
         UITextRange *selectedRange = [textfieldView markedTextRange];
         UITextPosition *position = [textfieldView positionFromPosition:selectedRange.start offset:0];
         if (!position) {
-            if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
-                text = [text substringToIndex: self.model.maxLength];
-                textfieldView.text = text;
-            }
-        }
-        else{
-
+            processChange = YES;
         }
     }
     else{
+        processChange = YES;
+    }
+    
+    if (processChange) {
         if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
             text = [text substringToIndex: self.model.maxLength];
             textfieldView.text = text;
         }
+        self.model.text = text;
+        self.stableModel.text = text;
+        [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
     }
-
-    self.model.text = text;
-    self.stableModel.text = text;
-    [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{

@@ -7,8 +7,8 @@
 @property (nonatomic, readonly) ScreenScale *scale;
 @property (nonatomic, readonly, getter=loadLifeCycle) id<AppLifecycle> lifecycle;
 @property (nonatomic, readonly) NSMutableString *luaPath;
-@property (nonatomic, readonly) NSString *dataPath DEPRECATED_ATTRIBUTE;
-@property (nonatomic, readonly) NSString *appPath DEPRECATED_ATTRIBUTE;
+@property (nonatomic, readonly) NSString *dataPath;
+@property (nonatomic, readonly) NSString *appPath;
 @property (nonatomic, strong) ManifestM *manifest;
 @property (nonatomic, readonly) NSMutableArray *pageList;
 @property (nonatomic, readonly, getter=loadLuaState) LuaState *state;

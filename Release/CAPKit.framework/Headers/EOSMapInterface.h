@@ -105,12 +105,10 @@
  
  Lua Samples:
  
- local maptable = map:tolua()
+ local maptable = map:totable()
  
  @return lua compatible dictionary
  */
-- (NSDictionary *) tolua DEPRECATED_ATTRIBUTE;
-
 - (NSDictionary *) totable;
 
 @end

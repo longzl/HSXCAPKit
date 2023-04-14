@@ -12,6 +12,8 @@
 @property (nonatomic, readonly) LuaState *state;
 
 @property (nonatomic, strong) CAPPageM *model;
+@property (nonatomic, strong) NSMapTable *widgetMap;
+
 @property (nonatomic, readonly) id<PageLifecycle> lifecycle;
 @property (nonatomic, readonly) NSString *pageId;
 

@@ -145,6 +145,7 @@
 -(void)onDestroy{
     [super onDestroy];
     
+    [wkwebview.configuration.userContentController removeScriptMessageHandlerForName: @"myApp"];
     uiwebview.delegate = nil;
     wkwebview.navigationDelegate = nil;
 }
@@ -374,7 +375,7 @@
     __block CAPLuaImage *wrapper = nil;
 
     if (usingJit) {
-        NSLog(@"TODO: snapshot %@.", @"WKWebview");
+        DEBUG_EOS_LOG(@"TODO: snapshot %@.", @"WKWebview");
     } else {
         dispatch_block_t blk = ^{
             NSInteger width = [[uiwebview stringByEvaluatingJavaScriptFromString: @"document.body.scrollWidth"] integerValue];
@@ -494,7 +495,7 @@
         [schemeHandler executeWithoutReturnValue: self, [url absoluteString], nil];
         return NO;
     }else if ([scheme isEqualToString: @"lua"]) {
-        NSString *query = [[url query] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+        NSString *query = [[url query] stringByRemovingPercentEncoding];
         [self processLua: query];
         return NO;
     }else if ([url isFileURL]){
@@ -633,14 +634,14 @@
       didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *sentData = (NSDictionary *)message.body;
     NSString *messageString = sentData[@"message"];
-    NSLog(@"Message received: %@", messageString);
+    DEBUG_EOS_LOG(@"Message received: %@", messageString);
 }
 
 
 -(void)dealloc{
     [OSUtils runSyncBlockOnMain:^{
-        uiwebview = nil;
-        wkwebview = nil;
+        self->uiwebview = nil;
+        self->wkwebview = nil;
     }];
     [indicatorView stopAnimating];
 }

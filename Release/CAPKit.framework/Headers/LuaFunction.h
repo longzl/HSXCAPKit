@@ -1,6 +1,7 @@
 @interface LuaFunction : LuaRef
 
 @property (nonatomic, strong) NSString *traceback;
+@property (nonatomic) NSString *tag;
 
 typedef void (^callback_block_t)(NSObject *ret, ...);
 

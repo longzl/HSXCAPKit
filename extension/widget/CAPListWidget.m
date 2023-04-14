@@ -746,7 +746,7 @@ static NSInteger sort(ListSectionModel *obj1, ListSectionModel *obj2, void *cont
     if ([self.model.__row_onmove isKindOfClass: [LuaFunction class]]) {
         [(LuaFunction *)self.model.__row_onmove executeWithoutReturnValue: self, @([sourceIndexPath section]), @([sourceIndexPath row]), @([destinationIndexPath section]), @([destinationIndexPath row]), nil];
     } else {
-        NSLog(@"Unhandled Reordering, please use __row_onmove.");
+        DEBUG_EOS_LOG(@"Unhandled Reordering, please use __row_onmove.", nil);
     }
 }
 

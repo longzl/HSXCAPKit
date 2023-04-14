@@ -41,12 +41,14 @@
             NSString *defaultFontName = [self.pageSandbox getDefaultFontName];
             if (defaultFontName) {
                 font = [UIFont fontWithName: defaultFontName size: size];
-            } else {
-                if (self.model.bold) {
-                    font = [UIFont boldSystemFontOfSize: size];
-                }else{
-                    font = [UIFont systemFontOfSize: size];
-                }
+            }
+        }
+        
+        if (!font) {
+            if (self.model.bold) {
+                font = [UIFont boldSystemFontOfSize: size];
+            }else{
+                font = [UIFont systemFontOfSize: size];
             }
         }
 
@@ -146,7 +148,7 @@
 - (void) onButtonClick: (UIButton *) btn{
     [self onButtonTouchUp];
 
-    BLYLogInfo(@"[%@.%@] onclick %@", [self.pageSandbox getAppId], [self.pageSandbox getPageId], self);
+    DEBUG_EOS_LOG(@"[%@.%@] onclick %@", [self.pageSandbox getAppId], [self.pageSandbox getPageId], self);
 
     if ([self.model.onclick isKindOfClass: [NSString class]]) {
         [OSUtils executeDirect: self.model.onclick withSandbox: self.pageSandbox];

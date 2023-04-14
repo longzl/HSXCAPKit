@@ -39,11 +39,6 @@ dest;\
     
     CGSize lastParentContentSize;
     
-    volatile BOOL layoutSuspended;
-    volatile BOOL layoutDirty;
-
-    UIViewAnimationOptions animationOptions;
-    
     BOOL created;
     
     int ref;
@@ -53,10 +48,12 @@ dest;\
     BOOL selfRectDirty;
     
     BOOL resetBeforeDataProvider;
-    
-    @public
-    CGRect currentRect;
 }
+
+@property (atomic) BOOL layoutSuspended;
+@property (atomic) BOOL layoutDirty;
+@property (nonatomic) UIViewAnimationOptions animationOptions;
+@property (nonatomic) CGRect currentRect;
 
 /**The Model with this `Widget`*/
 @property (nonatomic, strong, readonly) UIWidgetM *model; //dirtyModel

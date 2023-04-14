@@ -17,6 +17,9 @@
         _backgroundPlaybackEnabled = YES;
         _initialPlaybackTime = NAN;
         _endPlaybackTime = NAN;
+        if (@available(iOS 13.0, *)) {
+            _useAVPlayer = YES;
+        }
     }
     return self;
 }
@@ -39,14 +42,21 @@
 - (void) parseScalingMode: (NSString *) scalingMode{
     if ([scalingMode isKindOfClass: [NSString class]]) {
         if ([scalingMode isEqualToString: @"AspectFit"]) {
+            self.videoGravity = AVLayerVideoGravityResizeAspect;
             self.scalingMode = MPMovieScalingModeAspectFit;
         } else if ([scalingMode isEqualToString: @"AspectFill"]) {
+            self.videoGravity = AVLayerVideoGravityResizeAspectFill;
             self.scalingMode = MPMovieScalingModeAspectFill;
         } else if ([scalingMode isEqualToString: @"Fill"]) {
+            self.videoGravity = AVLayerVideoGravityResize;
             self.scalingMode = MPMovieScalingModeFill;
         } else {
+            self.videoGravity = AVLayerVideoGravityResizeAspect;
             self.scalingMode = MPMovieScalingModeNone;
         }
+    } else {
+        self.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        self.scalingMode = MPMovieScalingModeNone;
     }
 }
 

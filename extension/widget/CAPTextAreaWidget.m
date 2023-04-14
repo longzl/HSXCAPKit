@@ -147,29 +147,27 @@
 - (void)textViewDidChange:(UITextView *) tview{
     NSString *text = textView.text;
     NSString *lang = [textView.textInputMode primaryLanguage];
-    if ([lang isEqualToString:@"zh-Hans"]) {
+    BOOL processChange = NO;
+    if ([lang hasPrefix:@"zh"]) {
         UITextRange *selectedRange = [textView markedTextRange];
         UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
         if (!position) {
-            if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
-                text = [text substringToIndex: self.model.maxLength];
-                textView.text = text;
-            }
-        }
-        else{
-
+            processChange = YES;
         }
     }
     else{
+        processChange = YES;
+    }
+
+    if (processChange) {
         if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
             text = [text substringToIndex: self.model.maxLength];
             textView.text = text;
         }
+        self.model.text = text;
+        self.stableModel.text = text;
+        [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
     }
-
-    self.model.text = text;
-    self.stableModel.text = text;
-    [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
 }
 
 -(UIView *)innerView{

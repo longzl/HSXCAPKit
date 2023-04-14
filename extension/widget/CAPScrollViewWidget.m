@@ -45,6 +45,7 @@
     ((EOSScrollView *)[self innerView]).pagingEnabled = self.model.pagingEnabled;
 
     [self buildRefreshTableView];
+    [self reLayoutChildren];
 }
 
 - (void) buildRefreshTableView{

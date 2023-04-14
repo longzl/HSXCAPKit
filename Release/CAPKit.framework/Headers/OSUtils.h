@@ -75,4 +75,6 @@ typedef id (^block_with_returnvalue)(void);
 
 + (UIInterfaceOrientationMask) buildDirection: (NSString *) direction;
 
++ (void) presentViewController: (UIViewController *) viewController completion: (void (^ __nullable)(void))completion;
+
 @end

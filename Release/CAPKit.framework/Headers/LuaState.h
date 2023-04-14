@@ -13,6 +13,9 @@
 - (void) runFileAtPath:(NSString*)filePath withEnv: (int) ref;
 
 - (void) pushRegistyObject:(id)object withName:(const NSString*) key;
+
+- (id) getGlobalObject:(const NSString *) key;
+
 - (void) gc;
 
 + (void) exceptionAlert: (NSString *) message;

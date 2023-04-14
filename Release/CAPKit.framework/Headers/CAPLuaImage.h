@@ -1,7 +1,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <Photos/Photos.h>
 
 typedef void (^image_callback)(UIImage *img);
+
+@class PHAsset;
 
 @interface CAPLuaImage : AbstractLuaTableCompatible
 

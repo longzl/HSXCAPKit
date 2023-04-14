@@ -23,8 +23,8 @@
 }
 
 -(void)onLoad{
-    rootViewController = [[RootViewController alloc] init];
-    rootViewController.view.backgroundColor = [UIColor clearColor];
+    self.rootViewController = [[RootViewController alloc] init];
+    self.rootViewController.view.backgroundColor = [UIColor clearColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshScreen:) name: UIScreenDidConnectNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshScreen:) name: UIScreenDidDisconnectNotification object:nil];
@@ -34,21 +34,21 @@
 
 - (void) show: (id) dic{
     if ([dic isKindOfClass: [CAPAbstractUIWidget class]]) {
-        widget = dic;
+        self.widget = dic;
     }else if ([dic isKindOfClass: [NSDictionary class]]){
         CAPPanelView<PagePanel> *panelView = [[OSUtils getContainerFromState: L].renderView topPanelView];
         CAPPageSandbox *sandbox = [panelView getSandbox];
         
         if ([sandbox isKindOfClass: [CAPPageSandbox class]]) {
             UIWidgetM *model = [ModelBuilder buildModel: dic];
-            widget = [WidgetBuilder buildWidget: model withPageSandbox: sandbox];
+            self.widget = [WidgetBuilder buildWidget: model withPageSandbox: sandbox];
             
             [OSUtils runBlockOnMain:^{
-                [widget createView];
+                [self.widget createView];
             }];
         }
     } else {
-        widget = nil;
+        self.widget = nil;
     }
     
     hidden = NO;
@@ -64,7 +64,7 @@
         if (!window) {
             window = [[UIWindow alloc] initWithFrame: frame];
             window.backgroundColor = [UIColor blueColor];
-            window.rootViewController = rootViewController;
+            window.rootViewController = self.rootViewController;
         } else {
             window.frame = screen.bounds;
         }
@@ -75,7 +75,7 @@
         UIView * deviceView = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController].view;
         NSData *tempArchiveView = [NSKeyedArchiver archivedDataWithRootObject:deviceView];
         UIView *viewOfSelf = [NSKeyedUnarchiver unarchiveObjectWithData:tempArchiveView];
-        rootViewController.view = viewOfSelf;
+        self.rootViewController.view = viewOfSelf;
     }
 }
 
@@ -89,7 +89,7 @@
 - (void) hide{
     if (window) {
         window = nil;
-        widget = nil;
+        self.widget = nil;
         hidden = YES;
     }
 }
@@ -150,7 +150,7 @@
         if (!window) {
             window = [[UIWindow alloc] initWithFrame: frame];
             window.backgroundColor = [UIColor blueColor];
-            window.rootViewController = rootViewController;
+            window.rootViewController = self.rootViewController;
         } else {
             window.frame = screen.bounds;
         }
@@ -158,17 +158,18 @@
         [window setScreen: screen];
         window.hidden = NO;
 
-        if (widget) {
+        if (self.widget) {
+            __weak __typeof__(self) weakSelf = self;
             [OSUtils runBlockOnMain:^{
-                CGRect rect = [widget measureRect: frame.size];
-                widget->currentRect = rect;
-                [widget reloadRect];
+                CGRect rect = [weakSelf.widget measureRect: frame.size];
+                weakSelf.widget->currentRect = rect;
+                [weakSelf.widget reloadRect];
                 
-                for (UIView *view in [[rootViewController.view subviews] copy]) {
+                for (UIView *view in [[weakSelf.rootViewController.view subviews] copy]) {
                     [view removeFromSuperview];
                 }
                 
-                [rootViewController.view addSubview: [widget innerView]];
+                [weakSelf.rootViewController.view addSubview: [weakSelf.widget innerView]];
             }];
         }
     } else {

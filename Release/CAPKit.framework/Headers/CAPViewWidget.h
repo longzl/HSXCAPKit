@@ -12,11 +12,11 @@
 /**The View Widget*/
 @interface CAPViewWidget : CAPAbstractUIWidget<IViewWidget>{
     NSMutableArray *internalSubitems;
-    CGRect contentRect;
-    UIView *view;
-    
     BOOL initedSubview;
 }
+
+@property (nonatomic) CGRect contentRect;
+@property (nonatomic) UIView *view;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-property-synthesis"

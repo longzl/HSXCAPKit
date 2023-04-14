@@ -1,7 +1,13 @@
 #import "ContactsService.h"
 #import "LuaABRecord.h"
 
+@interface ContactsService ()
+
+
+@end
+
 @implementation ContactsService
+
 
 +(void)load{
     [[ESRegistry getInstance] registerService: @"ContactsService" withName: @"contacts"];
@@ -20,87 +26,87 @@
     return YES;
 }
 
-void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info, void *data) {
-    ContactsService *context = (__bridge ContactsService *) data;
-
-    addressBook = ABAddressBookCreateWithOptions(nil, nil);
-    if (context.addressBook) {
-        CFRelease(context.addressBook);
-    }
-    context.addressBook = addressBook;
-
-    ABAddressBookRegisterExternalChangeCallback(addressBook, handleAddressBookChange, (__bridge void *)(context));
-
-    @synchronized(context.changeWatchers){
-        NSArray *list = [NSArray arrayWithArray: context.changeWatchers];
-        
-        for (LuaFunction *watcher in list) {
-            if ([watcher isValid]) {
-                [watcher executeWithoutReturnValue: context, nil];
-            }else{
-                [context.changeWatchers removeObject: watcher];
-            }
-        }
-    }
-}
+//void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info, void *data) {
+//    ContactsService *context = (__bridge ContactsService *) data;
+//
+//    addressBook = ABAddressBookCreateWithOptions(nil, nil);
+//    if (context.addressBook) {
+//        CFRelease(context.addressBook);
+//    }
+//    context.addressBook = addressBook;
+//
+//    ABAddressBookRegisterExternalChangeCallback(addressBook, handleAddressBookChange, (__bridge void *)(context));
+//
+//    @synchronized(context.changeWatchers){
+//        NSArray *list = [NSArray arrayWithArray: context.changeWatchers];
+//
+//        for (LuaFunction *watcher in list) {
+//            if ([watcher isValid]) {
+//                [watcher executeWithoutReturnValue: context, nil];
+//            }else{
+//                [context.changeWatchers removeObject: watcher];
+//            }
+//        }
+//    }
+//}
 
 - (NSArray *) getAll{
     @synchronized (self) {
-        if (self.addressBook && self.granted) {
+        if (self.granted) {
             NSMutableArray *all = [NSMutableArray array];
 
-            CFArrayRef personArray = ABAddressBookCopyArrayOfAllPeople(self.addressBook);
-            CFIndex count = ABAddressBookGetPersonCount(self.addressBook);
-            for (int i = 0; i < count; i++){
-                ABRecordRef personRef = CFArrayGetValueAtIndex(personArray, i);
-                LuaABRecord *record = [[LuaABRecord alloc] initWithRecordID: ABRecordGetRecordID(personRef)
-                                                                withService: self];
+            CNContactFetchRequest *request = [[CNContactFetchRequest alloc]initWithKeysToFetch:@[CNContactGivenNameKey,CNContactFamilyNameKey,CNContactPhoneNumbersKey]];
+            NSError *err = nil;
+            [self.store enumerateContactsWithFetchRequest:request error:&err usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
+                LuaABRecord *record = [[LuaABRecord alloc] initWithIdentifier: contact.identifier
+                                                                  withService: self];
                 [all addObject: record];
-            }
-            if (personArray) {
-                CFRelease(personArray);
-            }
+            }];
 
             return all;
         } else {
-            NSLog(@"Permission Denied, Or you must do this after load callback.");
+            DEBUG_EOS_LOG(@"Permission Denied, Or you must do this after load callback.", nil);
             return nil;
         }
     }
 }
 
 - (void) _COROUTINE_load: (LuaFunction *) func {
-    if (self.addressBook && self.granted) {
-        if (func) {
-            [func executeWithoutReturnValue: self, [NSNumber numberWithBool: YES], nil];
-            [func unref];
-        }
-
-        return;
-    }
-
-    dispatch_semaphore_t dsema = dispatch_semaphore_create(0);
-
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, nil);
-
-    if(addressBook) {
-        ABAddressBookRegisterExternalChangeCallback(addressBook, handleAddressBookChange, (__bridge void *)(self));
-
-        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-            if (self.addressBook) {
-                CFRelease(self.addressBook);
-                self.addressBook = nil;
+    switch ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts]) {
+        case CNAuthorizationStatusAuthorized:
+            if (!self.store) {
+                self.store = [[CNContactStore alloc] init];
             }
-            self.addressBook = addressBook;
+            self.granted = YES;
+            break;
+        case CNAuthorizationStatusNotDetermined:{
+            dispatch_semaphore_t dsema = dispatch_semaphore_create(0);
+            if (!self.store) {
+                self.store = [[CNContactStore alloc] init];
+            }
 
-            self.granted = granted;
-
-            dispatch_semaphore_signal(dsema);
-        });
-
-        dispatch_semaphore_wait(dsema, DISPATCH_TIME_FOREVER);
+            [self.store requestAccessForEntityType:CNEntityTypeContacts
+                                 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                self.granted = granted;
+                
+                if (func) {
+                    [func executeWithoutReturnValue: self, [NSNumber numberWithBool: self.granted], nil];
+                    [func unref];
+                } else {
+                    dispatch_semaphore_signal(dsema);
+                }
+            }];
+            
+            if (func) {
+                return;
+            }
+            
+            dispatch_semaphore_wait(dsema, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)));
+        }
+            break;
+        default:
+            break;
     }
-
 
     if (func) {
         [func executeWithoutReturnValue: self, [NSNumber numberWithBool: self.granted], nil];
