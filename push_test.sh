@@ -1,5 +1,5 @@
 VERSION="v0.3.7"
-NAME="CAPKit"
+NAME="HSXCAPKit"
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 git add .
 git commit -am "fix ${VERSION}"
