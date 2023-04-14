@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "CAPKit"
+  s.name         = "HSXCAPKit"
   s.version      = "0.3.7"
   s.summary      = "CAPKit Framework."
   s.description  = <<-DESC
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Debug' do |ss|
-    ss.source_files = 'extension/**/*.*','Headers/*.*'
+    ss.source_files = 'extension/**/*.*'   #,'Headers/*.*'
     ss.resource = 'Debug/builtin'
     ss.ios.vendored_frameworks = 'Debug/CAPKit.framework'
   end
