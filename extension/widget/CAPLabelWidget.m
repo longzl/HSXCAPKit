@@ -6,9 +6,11 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPLabelWidget.h"
-#import "CAPLabelM.h"
+// #import "CAPLabelWidget.h"
+// #import "CAPLabelM.h"
 #import "DTCoreText.h"
+#import <CAPKit/CAPLabelWidget.h>
+#import <CAPKit/CAPLabelM.h>
 
 @implementation CAPLabelWidget
 

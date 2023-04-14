@@ -6,9 +6,12 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPScrollViewWidget.h"
-#import "CAPScrollViewM.h"
-#import "EOSScrollView.h"
+// #import "CAPScrollViewWidget.h"
+// #import "CAPScrollViewM.h"
+// #import "EOSScrollView.h"
+#import <CAPKit/CAPScrollViewWidget.h>
+#import <CAPKit/CAPScrollViewM.h>
+#import <CAPKit/EOSScrollView.h>
 
 @implementation CAPScrollViewWidget
 

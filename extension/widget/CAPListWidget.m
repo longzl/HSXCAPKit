@@ -6,11 +6,14 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPListWidget.h"
-#import "CAPListM.h"
-#import "ListWidgetCell.h"
+// #import "CAPListWidget.h"
+// #import "CAPListM.h"
+// #import "ListWidgetCell.h"
 #import "CJSONDeserializer.h"
 #import "EGORefreshTableHeaderView.h"
+#import <CAPKit/CAPListWidget.h>
+#import <CAPKit/CAPListM.h>
+#import <CAPKit/ListWidgetCell.h>
 
 @implementation ListSectionModel
 

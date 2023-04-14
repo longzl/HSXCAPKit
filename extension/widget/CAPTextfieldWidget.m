@@ -6,8 +6,10 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPTextfieldWidget.h"
-#import "CAPTextfieldM.h"
+// #import "CAPTextfieldWidget.h"
+// #import "CAPTextfieldM.h"
+#import <CAPKit/CAPTextfieldWidget.h>
+#import <CAPKit/CAPTextfieldM.h>
 
 @implementation CAPTextfieldWidget
 

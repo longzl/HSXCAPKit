@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPSwitchWidget.h"
-#import "CAPSwitchM.h"
+// #import "CAPSwitchWidget.h"
+// #import "CAPSwitchM.h"
+#import <CAPKit/CAPSwitchWidget.h>
+#import <CAPKit/CAPSwitchM.h>
 
 @implementation CAPSwitchWidget
 

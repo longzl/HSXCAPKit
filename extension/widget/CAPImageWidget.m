@@ -6,9 +6,11 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPImageWidget.h"
-#import "CAPImageM.h"
+// #import "CAPImageWidget.h"
+// #import "CAPImageM.h"
 #import "NSData+Base64.h"
+#import <CAPKit/CAPImageWidget.h>
+#import <CAPKit/CAPImageM.h>
 
 @interface CAPImageWidget ()
 

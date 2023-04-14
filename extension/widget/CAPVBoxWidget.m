@@ -6,9 +6,12 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPVBoxWidget.h"
-#import "CAPLabelWidget.h"
-#import "CAPVBoxM.h"
+// #import "CAPVBoxWidget.h"
+// #import "CAPLabelWidget.h"
+// #import "CAPVBoxM.h"
+#import <CAPKit/CAPVBoxWidget.h>
+#import <CAPKit/CAPLabelWidget.h>
+#import <CAPKit/CAPVBoxM.h>
 
 @implementation CAPVBoxWidget
 

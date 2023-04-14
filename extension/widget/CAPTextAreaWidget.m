@@ -6,8 +6,10 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CAPTextAreaWidget.h"
-#import "CAPTextAreaM.h"
+// #import "CAPTextAreaWidget.h"
+// #import "CAPTextAreaM.h"
+#import <CAPKit/CAPTextAreaWidget.h>
+#import <CAPKit/CAPTextAreaM.h>
 
 @implementation CAPTextAreaWidget
 

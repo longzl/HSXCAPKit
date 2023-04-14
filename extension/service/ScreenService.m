@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 Jian-Guo Hu. All rights reserved.
 //
 
-#import "ScreenService.h"
+// #import "ScreenService.h"
+#import <CAPKit/ScreenService.h>
 
 @implementation ScreenService
 

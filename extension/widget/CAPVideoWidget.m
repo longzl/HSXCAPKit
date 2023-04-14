@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Jian-Guo Hu. All rights reserved.
 //
 
-#import "CAPVideoWidget.h"
-#import "MPMoviePlayerController+BackgroundPlayback.h"
+// #import "CAPVideoWidget.h"
+// #import "MPMoviePlayerController+BackgroundPlayback.h"
+#import <CAPKit/CAPVideoWidget.h>
+#import <CAPKit/MPMoviePlayerController+BackgroundPlayback.h>
 
 CGFloat kMovieViewOffsetX = 20.0;
 CGFloat kMovieViewOffsetY = 20.0;
