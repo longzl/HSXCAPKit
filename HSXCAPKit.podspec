@@ -16,11 +16,11 @@ Pod::Spec.new do |s|
 
   s.default_subspec = 'Release'
 
-  s.subspec 'Release' do |ss|
-    ss.source_files = 'extension/**/*.*'
-    ss.resource = 'Release/builtin'
-    ss.ios.vendored_frameworks = 'Release/CAPKit.framework'
-  end
+  # s.subspec 'Release' do |ss|
+  #   ss.source_files = 'extension/**/*.*'
+  #   ss.resource = 'Release/builtin'
+  #   ss.ios.vendored_frameworks = 'Release/CAPKit.framework'
+  # end
 
   s.subspec 'Debug' do |ss|
     ss.source_files = 'extension/**/*.*'
