@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/longzl/HSXCAPKit"
   s.license      = "MIT"
   s.author       = { "longzhili" => "longzhili2005@126.com" }
-  s.platform     = :ios, "10.0.0"
+  s.platform     = :ios, "11.0.0"
   s.source       = { :git => "https://github.com/longzl/HSXCAPKit.git", :tag => "v#{s.version}" }
   s.frameworks   = 'AssetsLibrary', 'MessageUI', 'AddressBookUI', 'AddressBook', 'Accelerate', 'MapKit', 'AudioToolbox', 'CoreTelephony', 'QuickLook', 'Social', 'CoreLocation'
   s.weak_framework = 'WebKit'
