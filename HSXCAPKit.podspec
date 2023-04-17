@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.dependency 'TouchJSON', '~> 1.1'
   s.dependency 'ASIHTTPRequest', '~> 1.8.2'
   s.dependency 'FMDB/FTS', '~> 2.6.2'
-  # s.dependency 'Reachability', '~> 3.1.1'
+  s.dependency 'Reachability', '~> 3.2'
   s.dependency 'ZipArchive', '~> 1.4.0'
   s.dependency 'UIDevice-Hardware', '~> 0.1.3'
   s.dependency 'NSData+Base64', '~> 1.0.0'
