@@ -6,11 +6,9 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPImageWidget.h"
-// #import "CAPImageM.h"
+#import "CAPImageWidget.h"
+#import "CAPImageM.h"
 #import "NSData+Base64.h"
-#import <CAPKit/CAPImageWidget.h>
-#import <CAPKit/CAPImageM.h>
 
 @interface CAPImageWidget ()
 
@@ -153,7 +151,7 @@
             if ([imageURL isFileURL]) {
                 [self processImageData:[imageURL path]];
             }else if([imageURL isKindOfClass: [NSURL class]]){
-                DEBUG_EOS_LOG(@"%@", imageURL);
+                NSLog(@"%@", imageURL);
                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: imageURL
                                                                        cachePolicy: NSURLRequestUseProtocolCachePolicy
                                                                    timeoutInterval: 60];
@@ -200,7 +198,7 @@
                      } else {
                          NSDictionary *resp = @{@"responseCode": [NSNumber numberWithLong: ((NSHTTPURLResponse *) response).statusCode]};
                          [OSUtils executeDirect: weakSelf.model.onerror withSandbox: weakSelf.pageSandbox withObject: weakSelf withObject: resp];
-                         DEBUG_EOS_LOG(@"image download failed! - %@ - %@", imageURL, error);
+                         NSLog(@"image download failed! - %@ - %@", imageURL, error);
                      }
 
                      weakSelf.dataTask = nil;

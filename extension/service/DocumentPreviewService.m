@@ -6,8 +6,7 @@
 //
 //
 
-// #import "DocumentPreviewService.h"
-#import <CAPKit/DocumentPreviewService.h>
+#import "DocumentPreviewService.h"
 
 @implementation DocumentPreviewService
 

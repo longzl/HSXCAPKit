@@ -1,5 +1,4 @@
-// #import "LocalNotificationService.h"
-#import <CAPKit/LocalNotificationService.h>
+#import "LocalNotificationService.h"
 
 @implementation LocalNotificationService
 

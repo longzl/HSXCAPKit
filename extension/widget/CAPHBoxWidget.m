@@ -6,10 +6,8 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPHBoxWidget.h"
-// #import "CAPHBoxM.h"
-#import <CAPKit/CAPHBoxWidget.h>
-#import <CAPKit/CAPHBoxM.h>
+#import "CAPHBoxWidget.h"
+#import "CAPHBoxM.h"
 
 @implementation CAPHBoxWidget
 

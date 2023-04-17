@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jian-Guo Hu. All rights reserved.
 //
 
-// #import "ScreenService.h"
-#import <CAPKit/ScreenService.h>
+#import "ScreenService.h"
 
 @implementation ScreenService
 
@@ -24,8 +23,8 @@
 }
 
 -(void)onLoad{
-    self.rootViewController = [[RootViewController alloc] init];
-    self.rootViewController.view.backgroundColor = [UIColor clearColor];
+    rootViewController = [[RootViewController alloc] init];
+    rootViewController.view.backgroundColor = [UIColor clearColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshScreen:) name: UIScreenDidConnectNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshScreen:) name: UIScreenDidDisconnectNotification object:nil];
@@ -35,21 +34,21 @@
 
 - (void) show: (id) dic{
     if ([dic isKindOfClass: [CAPAbstractUIWidget class]]) {
-        self.widget = dic;
+        widget = dic;
     }else if ([dic isKindOfClass: [NSDictionary class]]){
         CAPPanelView<PagePanel> *panelView = [[OSUtils getContainerFromState: L].renderView topPanelView];
         CAPPageSandbox *sandbox = [panelView getSandbox];
         
         if ([sandbox isKindOfClass: [CAPPageSandbox class]]) {
             UIWidgetM *model = [ModelBuilder buildModel: dic];
-            self.widget = [WidgetBuilder buildWidget: model withPageSandbox: sandbox];
+            widget = [WidgetBuilder buildWidget: model withPageSandbox: sandbox];
             
             [OSUtils runBlockOnMain:^{
-                [self.widget createView];
+                [widget createView];
             }];
         }
     } else {
-        self.widget = nil;
+        widget = nil;
     }
     
     hidden = NO;
@@ -65,7 +64,7 @@
         if (!window) {
             window = [[UIWindow alloc] initWithFrame: frame];
             window.backgroundColor = [UIColor blueColor];
-            window.rootViewController = self.rootViewController;
+            window.rootViewController = rootViewController;
         } else {
             window.frame = screen.bounds;
         }
@@ -76,7 +75,7 @@
         UIView * deviceView = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController].view;
         NSData *tempArchiveView = [NSKeyedArchiver archivedDataWithRootObject:deviceView];
         UIView *viewOfSelf = [NSKeyedUnarchiver unarchiveObjectWithData:tempArchiveView];
-        self.rootViewController.view = viewOfSelf;
+        rootViewController.view = viewOfSelf;
     }
 }
 
@@ -90,7 +89,7 @@
 - (void) hide{
     if (window) {
         window = nil;
-        self.widget = nil;
+        widget = nil;
         hidden = YES;
     }
 }
@@ -151,7 +150,7 @@
         if (!window) {
             window = [[UIWindow alloc] initWithFrame: frame];
             window.backgroundColor = [UIColor blueColor];
-            window.rootViewController = self.rootViewController;
+            window.rootViewController = rootViewController;
         } else {
             window.frame = screen.bounds;
         }
@@ -159,18 +158,17 @@
         [window setScreen: screen];
         window.hidden = NO;
 
-        if (self.widget) {
-            __weak __typeof__(self) weakSelf = self;
+        if (widget) {
             [OSUtils runBlockOnMain:^{
-                CGRect rect = [weakSelf.widget measureRect: frame.size];
-                weakSelf.widget->currentRect = rect;
-                [weakSelf.widget reloadRect];
+                CGRect rect = [widget measureRect: frame.size];
+                widget->currentRect = rect;
+                [widget reloadRect];
                 
-                for (UIView *view in [[weakSelf.rootViewController.view subviews] copy]) {
+                for (UIView *view in [[rootViewController.view subviews] copy]) {
                     [view removeFromSuperview];
                 }
                 
-                [weakSelf.rootViewController.view addSubview: [weakSelf.widget innerView]];
+                [rootViewController.view addSubview: [widget innerView]];
             }];
         }
     } else {

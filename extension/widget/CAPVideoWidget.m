@@ -6,10 +6,8 @@
 //  Copyright (c) 2014 Jian-Guo Hu. All rights reserved.
 //
 
-// #import "CAPVideoWidget.h"
-// #import "MPMoviePlayerController+BackgroundPlayback.h"
-#import <CAPKit/CAPVideoWidget.h>
-#import <CAPKit/MPMoviePlayerController+BackgroundPlayback.h>
+#import "CAPVideoWidget.h"
+#import "MPMoviePlayerController+BackgroundPlayback.h"
 
 CGFloat kMovieViewOffsetX = 20.0;
 CGFloat kMovieViewOffsetY = 20.0;
@@ -59,7 +57,7 @@ static int idleTimerDisabledCount;
         idleTimerDisabledCount++;
         if (idleTimerDisabledCount > 0) {
             [UIApplication sharedApplication].idleTimerDisabled = YES;
-//            DEBUG_EOS_LOG(@"idleTimerDisabled = YES");
+//            NSLog(@"idleTimerDisabled = YES");
         }
     }
 }
@@ -71,7 +69,7 @@ static int idleTimerDisabledCount;
         idleTimerDisabledCount--;
         if (idleTimerDisabledCount <= 0) {
             [UIApplication sharedApplication].idleTimerDisabled = NO;
-//            DEBUG_EOS_LOG(@"idleTimerDisabled = NO");
+//            NSLog(@"idleTimerDisabled = NO");
         }
     }
 }
@@ -105,7 +103,8 @@ static int idleTimerDisabledCount;
     }
 }
 
-- (void) removeObservers {
+- (void) onDestroy {
+    [super onDestroy];
     if (self.model.useAVPlayer) {
         [self.playerItem removeObserver:self forKeyPath:@"status"];
         [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
@@ -123,16 +122,6 @@ static int idleTimerDisabledCount;
         self.moviePlayerController = nil;
     }
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-}
-
--(void)dealloc{    
-    [self removeObservers];
-}
-
-- (void) onDestroy {
-    [super onDestroy];
-    
-    [self removeObservers];
 
     [self startIdleTimer];
 }
@@ -175,9 +164,9 @@ static int idleTimerDisabledCount;
 
 - (NSTimeInterval) getPlayableDuration {
     if (self.model.useAVPlayer) {
-        if (@available(iOS 10.0, *)) {
+        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_9_x_Max) {
             return self.playerItem.preferredForwardBufferDuration;
-        }else {
+        } else {
             return 0;
         }
     } else {
@@ -274,11 +263,7 @@ static int idleTimerDisabledCount;
 - (void) pause{
     [OSUtils runBlockOnMain:^{
         if (self.model.useAVPlayer) {
-            if (@available(iOS 10.0, *)) {
-                if (self.player.timeControlStatus != AVPlayerTimeControlStatusPaused) {
-                    [self.player pause];
-                }
-            }
+            [self.player pause];
         } else {
             [self.moviePlayerController pause];
         }
@@ -453,7 +438,7 @@ static int idleTimerDisabledCount;
         self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
         // layer的frame
         self.playerLayer.frame = _view.bounds;
-        self.playerLayer.videoGravity = self.model.videoGravity;
+        self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         // 把Layer加到底部View上
         [_view.layer insertSublayer:self.playerLayer atIndex:0];
         // 监听播放器状态变化
@@ -540,21 +525,13 @@ static int idleTimerDisabledCount;
     
     return tb;
 }
-    
-- (void) playerItemDidReachEnd: (NSNotification *) notification{
-    if (self.model.onplaybackfinish) {
-        [self.model.onplaybackfinish executeWithoutReturnValue: self, @(0), nil];
-    } else {
-        DEBUG_EOS_LOG(@"Unhandled Event, %@", notification);
-    }
-}
 
 - (void) moviePlayBackDidFinish:(NSNotification*)notification {
     NSNumber *reason = [[notification userInfo] objectForKey: MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
     if (self.model.onplaybackfinish) {
         [self.model.onplaybackfinish executeWithoutReturnValue: self, reason, [notification userInfo], nil];
     } else {
-        DEBUG_EOS_LOG(@"Unhandled Event, %@", notification);
+        NSLog(@"Unhandled Event, %@", notification);
     }
 
     [self startIdleTimer];
@@ -568,7 +545,7 @@ static int idleTimerDisabledCount;
     if (self.model.onloadstate) {
         [self.model.onloadstate executeWithoutReturnValue: self, [NSNumber numberWithInt: loadState], nil];
     } else {
-        DEBUG_EOS_LOG(@"Unhandled Event, %@", notification);
+        NSLog(@"Unhandled Event, %@", notification);
     }
 }
 
@@ -578,7 +555,7 @@ static int idleTimerDisabledCount;
     if (self.model.onplaybackstate) {
         [self.model.onplaybackstate executeWithoutReturnValue: self, [NSNumber numberWithInt: player.playbackState], nil];
     } else {
-        DEBUG_EOS_LOG(@"Unhandled Event, %@", notification);
+        NSLog(@"Unhandled Event, %@", notification);
     }
 
     switch (player.playbackState) {
@@ -600,7 +577,7 @@ static int idleTimerDisabledCount;
     if (self.model.onpreparedtoplay) {
         [self.model.onpreparedtoplay executeWithoutReturnValue: self, [NSNumber numberWithBool: player.isPreparedToPlay], nil];
     } else {
-        DEBUG_EOS_LOG(@"Unhandled Event, %@", notification);
+        NSLog(@"Unhandled Event, %@", notification);
     }
 }
 

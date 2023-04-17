@@ -1,5 +1,4 @@
-// #import "MotionService.h"
-#import <CAPKit/MotionService.h>
+#import "MotionService.h"
 
 @implementation MotionService
 

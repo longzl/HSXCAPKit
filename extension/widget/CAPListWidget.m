@@ -6,14 +6,11 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPListWidget.h"
-// #import "CAPListM.h"
-// #import "ListWidgetCell.h"
+#import "CAPListWidget.h"
+#import "CAPListM.h"
+#import "ListWidgetCell.h"
 #import "CJSONDeserializer.h"
 #import "EGORefreshTableHeaderView.h"
-#import <CAPKit/CAPListWidget.h>
-#import <CAPKit/CAPListM.h>
-#import <CAPKit/ListWidgetCell.h>
 
 @implementation ListSectionModel
 
@@ -749,7 +746,7 @@ static NSInteger sort(ListSectionModel *obj1, ListSectionModel *obj2, void *cont
     if ([self.model.__row_onmove isKindOfClass: [LuaFunction class]]) {
         [(LuaFunction *)self.model.__row_onmove executeWithoutReturnValue: self, @([sourceIndexPath section]), @([sourceIndexPath row]), @([destinationIndexPath section]), @([destinationIndexPath row]), nil];
     } else {
-        DEBUG_EOS_LOG(@"Unhandled Reordering, please use __row_onmove.", nil);
+        NSLog(@"Unhandled Reordering, please use __row_onmove.");
     }
 }
 

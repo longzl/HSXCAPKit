@@ -22,17 +22,12 @@ FOUNDATION_EXPORT const unsigned char CAPKitVersionString[];
 
 #define AppContext NSMutableDictionary
 
-#if DEBUG_EOS
-#define EOS_DEBUG(x) if([CAPCenter shared].EOS_DEBUG_BOOL)x()
-#define EOS_RELEASE(x) ((void)0)
-#else
-#define EOS_DEBUG(x) ((void)0)
-#define EOS_RELEASE(x) x()
-#endif
+#import <lua53/lua.h>
+#import <lua53/lualib.h>
+#import <lua53/lauxlib.h>
 
-#define DEBUG_EOS_LOG(x,...) EOS_DEBUG(^{NSLog(@"[DEBUG_EOS] " x,__VA_ARGS__);})
-
-typedef struct lua_State lua_State;
+#import <CAPKit/caplua.h>
+#import <HSXluafan/bytearray.h>
 
 #import <CAPKit/LuaRef.h>
 #import <CAPKit/LuaFunction.h>
@@ -125,5 +120,7 @@ typedef struct lua_State lua_State;
 
 #import <CAPKit/RootViewController.h>
 #import <CAPKit/CAPAppDelegate.h>
+
+#import <Bugly/Bugly.h>
 
 #endif

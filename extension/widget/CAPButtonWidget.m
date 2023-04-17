@@ -6,11 +6,9 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPButtonWidget.h"
-// #import "CAPButtonM.h"
+#import "CAPButtonWidget.h"
+#import "CAPButtonM.h"
 #import "CJSONSerializer.h"
-#import <CAPKit/CAPButtonWidget.h>
-#import <CAPKit/CAPButtonM.h>
 
 @implementation CAPButtonWidget
 
@@ -43,14 +41,12 @@
             NSString *defaultFontName = [self.pageSandbox getDefaultFontName];
             if (defaultFontName) {
                 font = [UIFont fontWithName: defaultFontName size: size];
-            }
-        }
-        
-        if (!font) {
-            if (self.model.bold) {
-                font = [UIFont boldSystemFontOfSize: size];
-            }else{
-                font = [UIFont systemFontOfSize: size];
+            } else {
+                if (self.model.bold) {
+                    font = [UIFont boldSystemFontOfSize: size];
+                }else{
+                    font = [UIFont systemFontOfSize: size];
+                }
             }
         }
 
@@ -150,7 +146,7 @@
 - (void) onButtonClick: (UIButton *) btn{
     [self onButtonTouchUp];
 
-    DEBUG_EOS_LOG(@"[%@.%@] onclick %@", [self.pageSandbox getAppId], [self.pageSandbox getPageId], self);
+    BLYLogInfo(@"[%@.%@] onclick %@", [self.pageSandbox getAppId], [self.pageSandbox getPageId], self);
 
     if ([self.model.onclick isKindOfClass: [NSString class]]) {
         [OSUtils executeDirect: self.model.onclick withSandbox: self.pageSandbox];

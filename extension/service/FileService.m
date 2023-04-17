@@ -1,5 +1,4 @@
-// #import "FileService.h"
-#import <CAPKit/FileService.h>
+#import "FileService.h"
 
 @implementation FileService
 

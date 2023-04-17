@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
 //
 
-// #import "EOSTextView.h"
-#import <CAPKit/EOSTextView.h>
+#import "EOSTextView.h"
 
 @implementation EOSTextView
 

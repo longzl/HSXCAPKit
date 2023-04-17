@@ -21,13 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-#import <CAPKit/CAPKit.h>
-// #import "BMXSwipableCell.h"
-// #import "BMXSwipableCellGestureDelegate.h"
-// #import "SwipableScrollview.h"
-#import <CAPKit/BMXSwipableCell.h>
-#import <CAPKit/BMXSwipableCellGestureDelegate.h>
-#import <CAPKit/SwipableScrollview.h>
+
+#import "BMXSwipableCell.h"
+#import "BMXSwipableCellGestureDelegate.h"
+#import "SwipableScrollview.h"
 
 #define BMX_SWIPABLE_CELL_LOG_ENABLED
 #undef BMX_SWIPABLE_CELL_LOG_ENABLED
@@ -126,7 +123,7 @@ static const CGFloat kDefaultUITableViewDeleteControlWidth = 47;
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
     if (! view) {
         // cell is not contained in a UITableView view hierarchy
-        DEBUG_EOS_LOG(@"UITableView not found");
+        NSLog(@"UITableView not found");
     }
 #endif
 
@@ -215,7 +212,7 @@ static const CGFloat kDefaultUITableViewDeleteControlWidth = 47;
 
     
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"setEditing: bmx_coverBasement");
+    NSLog(@"setEditing: bmx_coverBasement");
 #endif
     [self bmx_coverBasement];
 }
@@ -314,7 +311,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     //
     NSArray *constraints = [self.contentView constraints];
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"constraints.count=%d", constraints.count);
+    NSLog(@"constraints.count=%d", constraints.count);
 #endif
     
     NSMutableArray *newConstraints = [@[] mutableCopy];
@@ -353,7 +350,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 				}
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
 //			} else {
-//				DEBUG_EOS_LOG(@"Warning: Unsupported %@ instance in content view autolayout constraints: please set -[translatesAutoresizingMaskIntoConstraints] property to NO for the -[BMXSwipableCell contentView] subview if this constaint is not expected.",
+//				NSLog(@"Warning: Unsupported %@ instance in content view autolayout constraints: please set -[translatesAutoresizingMaskIntoConstraints] property to NO for the -[BMXSwipableCell contentView] subview if this constaint is not expected.",
 //					   NSStringFromClass(constraint.class));
 #endif
 			}
@@ -412,7 +409,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)bmx_basementDidAppear
 {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"bmx_basementDidAppear");
+    NSLog(@"bmx_basementDidAppear");
 #endif
     
     if (!_showingBasement) {
@@ -464,7 +461,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"scrollViewWillEndDragging");
+    NSLog(@"scrollViewWillEndDragging");
 #endif
     
     //
@@ -480,7 +477,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"scrollViewDidScroll contentOffset.x=%f", scrollView.contentOffset.x);
+    NSLog(@"scrollViewDidScroll contentOffset.x=%f", scrollView.contentOffset.x);
 #endif
     
     if (self.editing) {
@@ -494,7 +491,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         
     } else if (scrollView.contentOffset.x == 0) {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-        DEBUG_EOS_LOG(@"scrollViewDidScroll: cover basement");
+        NSLog(@"scrollViewDidScroll: cover basement");
 #endif
         [self bmx_coverBasement];
         [self bmx_resetAccessoryView];
@@ -511,7 +508,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             self.accessoryView.hidden = YES;
         } else {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-            DEBUG_EOS_LOG(@"scrollViewDidScroll: translating accessory view by %f", scrollView.contentOffset.x);
+            NSLog(@"scrollViewDidScroll: translating accessory view by %f", scrollView.contentOffset.x);
 #endif
             self.accessoryView.transform = CGAffineTransformMakeTranslation(-scrollView.contentOffset.x, 0);
         }
@@ -520,7 +517,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    DEBUG_EOS_LOG(@"scrollViewDidEndDecelerating: content offset %f", scrollView.contentOffset.x);
+    NSLog(@"scrollViewDidEndDecelerating: content offset %f", scrollView.contentOffset.x);
     if (scrollView.contentOffset.x == 0) {
         [self bmx_resetAccessoryView];
     }
@@ -528,7 +525,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"scrollViewDidEndScrollingAnimation: %f", _scrollView.contentOffset.x);
+    NSLog(@"scrollViewDidEndScrollingAnimation: %f", _scrollView.contentOffset.x);
 #endif
     if ( _scrollView.contentOffset.x == _basementVisibleWidth ) {
         [self bmx_basementDidAppear];
@@ -554,7 +551,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
     
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"enclosingTableViewDidScroll: bmx_coverBasement");
+    NSLog(@"enclosingTableViewDidScroll: bmx_coverBasement");
 #endif
 
     _showingBasement = _scrollView.contentOffset.x > 0;
@@ -570,7 +567,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)bmx_handlePanGesture:(UIPanGestureRecognizer *)gesture {
 #ifdef BMX_SWIPABLE_CELL_LOG_ENABLED
-    DEBUG_EOS_LOG(@"%@", [gesture description]);
+    NSLog(@"%@", [gesture description]);
 #endif
     
     if ( self.isEditing || _showingBasement || !_swipeEnabled) {

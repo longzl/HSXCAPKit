@@ -6,11 +6,9 @@
 //  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPCanvasWidget.h"
-// #import "CAPCanvasM.h"
+#import "CAPCanvasWidget.h"
+#import "CAPCanvasM.h"
 #import "CanvasDisplayView.h"
-#import <CAPKit/CAPCanvasWidget.h>
-#import <CAPKit/CAPCanvasM.h>
 
 #define BITMAP_CONTEXT_LOCK() [bitmapLock lock]
 #define BITMAP_CONTEXT_UNLOCK() [bitmapLock unlock]

@@ -6,10 +6,8 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPTextAreaWidget.h"
-// #import "CAPTextAreaM.h"
-#import <CAPKit/CAPTextAreaWidget.h>
-#import <CAPKit/CAPTextAreaM.h>
+#import "CAPTextAreaWidget.h"
+#import "CAPTextAreaM.h"
 
 @implementation CAPTextAreaWidget
 
@@ -149,27 +147,29 @@
 - (void)textViewDidChange:(UITextView *) tview{
     NSString *text = textView.text;
     NSString *lang = [textView.textInputMode primaryLanguage];
-    BOOL processChange = NO;
-    if ([lang hasPrefix:@"zh"]) {
+    if ([lang isEqualToString:@"zh-Hans"]) {
         UITextRange *selectedRange = [textView markedTextRange];
         UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
         if (!position) {
-            processChange = YES;
+            if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
+                text = [text substringToIndex: self.model.maxLength];
+                textView.text = text;
+            }
+        }
+        else{
+
         }
     }
     else{
-        processChange = YES;
-    }
-
-    if (processChange) {
         if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
             text = [text substringToIndex: self.model.maxLength];
             textView.text = text;
         }
-        self.model.text = text;
-        self.stableModel.text = text;
-        [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
     }
+
+    self.model.text = text;
+    self.stableModel.text = text;
+    [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
 }
 
 -(UIView *)innerView{

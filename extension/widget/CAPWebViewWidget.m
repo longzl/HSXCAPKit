@@ -6,16 +6,13 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPWebViewWidget.h"
-// #import "CAPWebViewM.h"
+#import "CAPWebViewWidget.h"
+#import "CAPWebViewM.h"
 #import "CJSONDeserializer.h"
 #import "CJSONSerializer.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <QuartzCore/QuartzCore.h>
-#import <CAPKit/CAPWebViewWidget.h>
-#import <CAPKit/CAPWebViewM.h>
-
 
 @implementation CAPWebViewWidget
 
@@ -378,7 +375,7 @@
     __block CAPLuaImage *wrapper = nil;
 
     if (usingJit) {
-        DEBUG_EOS_LOG(@"TODO: snapshot %@.", @"WKWebview");
+        NSLog(@"TODO: snapshot %@.", @"WKWebview");
     } else {
         dispatch_block_t blk = ^{
             NSInteger width = [[uiwebview stringByEvaluatingJavaScriptFromString: @"document.body.scrollWidth"] integerValue];
@@ -498,7 +495,7 @@
         [schemeHandler executeWithoutReturnValue: self, [url absoluteString], nil];
         return NO;
     }else if ([scheme isEqualToString: @"lua"]) {
-        NSString *query = [[url query] stringByRemovingPercentEncoding];
+        NSString *query = [[url query] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
         [self processLua: query];
         return NO;
     }else if ([url isFileURL]){
@@ -637,14 +634,14 @@
       didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *sentData = (NSDictionary *)message.body;
     NSString *messageString = sentData[@"message"];
-    DEBUG_EOS_LOG(@"Message received: %@", messageString);
+    NSLog(@"Message received: %@", messageString);
 }
 
 
 -(void)dealloc{
     [OSUtils runSyncBlockOnMain:^{
-        self->uiwebview = nil;
-        self->wkwebview = nil;
+        uiwebview = nil;
+        wkwebview = nil;
     }];
     [indicatorView stopAnimating];
 }

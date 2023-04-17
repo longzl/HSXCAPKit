@@ -6,12 +6,9 @@
 //  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
 //
 
-// #import "EOSLabel.h"
-// #import "CAPLabelM.h"
-// #import "CAPLabelWidget.h"
-#import <CAPKit/EOSLabel.h>
-#import <CAPKit/CAPLabelM.h>
-#import <CAPKit/CAPLabelWidget.h>
+#import "EOSLabel.h"
+#import "CAPLabelM.h"
+#import "CAPLabelWidget.h"
 
 @implementation EOSLabel
 

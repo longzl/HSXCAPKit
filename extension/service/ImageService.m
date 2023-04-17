@@ -1,5 +1,4 @@
-// #import "ImageService.h"
-#import <CAPKit/CAPKImageServiceit.h>
+#import "ImageService.h"
 
 @implementation ImageService
 

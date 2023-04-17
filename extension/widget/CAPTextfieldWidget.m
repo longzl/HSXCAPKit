@@ -6,10 +6,8 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-// #import "CAPTextfieldWidget.h"
-// #import "CAPTextfieldM.h"
-#import <CAPKit/CAPTextfieldWidget.h>
-#import <CAPKit/CAPTextfieldM.h>
+#import "CAPTextfieldWidget.h"
+#import "CAPTextfieldM.h"
 
 @implementation CAPTextfieldWidget
 
@@ -211,27 +209,29 @@
 - (void)textFieldDidChange :(NSNotification *)obj {
     NSString *text = textfieldView.text;
     NSString *lang = [textfieldView.textInputMode primaryLanguage];
-    BOOL processChange = NO;
-    if ([lang hasPrefix:@"zh"]) {
+    if ([lang isEqualToString:@"zh-Hans"]) {
         UITextRange *selectedRange = [textfieldView markedTextRange];
         UITextPosition *position = [textfieldView positionFromPosition:selectedRange.start offset:0];
         if (!position) {
-            processChange = YES;
+            if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
+                text = [text substringToIndex: self.model.maxLength];
+                textfieldView.text = text;
+            }
+        }
+        else{
+
         }
     }
     else{
-        processChange = YES;
-    }
-    
-    if (processChange) {
         if (self.model.maxLength > 0 && [text length] > self.model.maxLength) {
             text = [text substringToIndex: self.model.maxLength];
             textfieldView.text = text;
         }
-        self.model.text = text;
-        self.stableModel.text = text;
-        [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
     }
+
+    self.model.text = text;
+    self.stableModel.text = text;
+    [OSUtils executeDirect: self.model.onchange withSandbox: self.pageSandbox withObject: self];
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{

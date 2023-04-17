@@ -1,3 +1,4 @@
+#import <FMDB/FMDatabaseQueue.h>
 
 #define SCOPE_GLOBAL @"$global"
 #define SCOPE_SKIN_SPEC @"$skin_spec"
@@ -5,7 +6,6 @@
 #define SCOPE_PATCHFROM @"$patchfrom"
 #define SCOPE_INSTALLED @"$installed"
 
-@class FMDatabaseQueue;
 
 @interface StorageHelper : NSObject {
     NSMutableDictionary *dbDic;

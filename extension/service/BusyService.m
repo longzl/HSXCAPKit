@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jian-Guo Hu. All rights reserved.
 //
 
-// #import "BusyService.h"
-#import <CAPKit/BusyService.h>
+#import "BusyService.h"
 
 @implementation BusyService
 

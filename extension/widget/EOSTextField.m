@@ -6,8 +6,7 @@
 //
 //
 
-// #import "EOSTextField.h"
-#import <CAPKit/EOSTextField.h>
+#import "EOSTextField.h"
 
 @implementation EOSTextField
 
