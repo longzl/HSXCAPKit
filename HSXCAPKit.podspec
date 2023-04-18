@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'extension/**/*.*'
     ss.resource = 'Debug/builtin'
     ss.ios.vendored_frameworks = 'Debug/CAPKit.framework'
-    # ss.pod_target_xcconfig = { "HEADER_SEARCH_PATHS" => "Debug/CAPKit.framework" }
+    ss.pod_target_xcconfig = { "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES" => "YES" }
   end
 
   s.dependency 'DTCoreText', '~> 1.6.12'
