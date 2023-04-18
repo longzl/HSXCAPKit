@@ -9,4 +9,4 @@ git tag ${VERSION}
 git push --tags
 
 pod cache clean ${NAME} --all
-pod repo push hsxorg *.podspec --use-libraries --allow-warnings --skip-import-validation --sources='https://github.com/longzl/PodSpec.git,https://github.com/CocoaPods/Specs.git'
+pod repo push hsxorg *.podspec --use-libraries --allow-warnings --sources='https://github.com/longzl/PodSpec.git,https://github.com/CocoaPods/Specs.git'
