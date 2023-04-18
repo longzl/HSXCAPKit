@@ -22,9 +22,10 @@ Pod::Spec.new do |s|
   #   ss.ios.vendored_frameworks = 'Release/CAPKit.framework'
   # end
   # s.public_header_files = 'extension/**/*.h'
+  s.public_header_files = 'extension/**/*.h'
+  s.source_files  = 'extension/**/*.*'
 
   s.subspec 'Debug' do |ss|
-    ss.source_files = 'extension/**/*.*'
     ss.resource = 'Debug/builtin'
     ss.ios.vendored_frameworks = 'Debug/CAPKit.framework'
     ss.pod_target_xcconfig = { "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES" => "YES" }
