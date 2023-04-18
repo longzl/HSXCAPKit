@@ -21,9 +21,9 @@ Pod::Spec.new do |s|
   #   ss.resource = 'Release/builtin'
   #   ss.ios.vendored_frameworks = 'Release/CAPKit.framework'
   # end
+  s.public_header_files = 'extension/**/*.h'
 
   s.subspec 'Debug' do |ss|
-    ss.public_header_files = 'extension/**/*.{h}'
     ss.source_files = 'extension/**/*.*'
     ss.resource = 'Debug/builtin'
     ss.ios.vendored_frameworks = 'Debug/CAPKit.framework'
