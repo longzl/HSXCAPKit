@@ -1,3 +1,0 @@
-@interface BroadcastEvent : BaseEvent
-
-@end

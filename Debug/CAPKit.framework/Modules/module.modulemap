@@ -1,6 +1,0 @@
-framework module CAPKit {
-  umbrella header "CAPKit.h"
-
-  export *
-  module * { export * }
-}
