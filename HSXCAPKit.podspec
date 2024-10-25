@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HSXCAPKit"
-  s.version      = "0.3.8"
+  s.version      = "0.3.10"
   s.summary      = "CAPKit Framework."
   s.description  = <<-DESC
                    CAPKit Framework, Cloud Application Platform.
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   # s.dependency 'CAPKit-3rdparty-libs', '~> 0.1.0'
   # s.dependency 'CAPKit-sqlcipher', '~> 0.1.0'
   # s.dependency 'CAPKit-OpenCV24x', '~> 2.4.10'
-  s.dependency 'HSXluafan', '~> 0.7.2'
+  s.dependency 'HSXluafan', '~> 0.7.9'
   s.dependency 'HSXCAPKit-3rdparty-libs', '~> 0.1.0'
   s.dependency 'HSXCAPKit-sqlcipher', '~> 0.1.0'
   s.dependency 'HSXCAPKit-OpenCV24x', '~> 2.4.10'
